@@ -1,0 +1,92 @@
+(common) {
+    # # don't log if favicon gets requested
+    @is_favicon path /favicon.*
+    # log @is_favicon {
+    # 	output discard
+    # }
+
+    # # don't log if robots.txt gets requested
+    @is_robots path /robots.txt
+    # log @is_robots {
+    # 	output discard
+    # }
+    
+    # general logging settings
+    log {
+        output file /var/log/caddy/access.log {
+            roll_size     20MiB
+            roll_keep     10 # keep the latest 10 log files
+            roll_keep_for 2190h # 90 days
+        }
+
+        format filter {
+            wrap json
+            fields {
+                # delete logging of the whole ip (unmasked)
+                common_log delete
+                # instead truncate the ip address
+                request>remote_addr ip_mask {
+                    ipv4 24
+                    ipv6 32
+                }
+            }
+        }
+    }
+
+    # enable Gzip
+    encode gzip
+
+    # remove certain header information or add
+    header {
+        # Remove "Server" field
+        -Server
+
+        # Remove "Etag" field
+        -Etag
+
+        # disable FLoC tracking
+        Permissions-Policy interest-cohort=()
+    }
+}
+
+(proxy) {
+    # from client towards service (upstream / request header)
+    header_up Connection "upgrade"
+    header_up Host {http.request.host}
+
+    # IP of client
+    header_up X-Real-IP {http.request.remote.host}
+    # Scheme (http or https)
+    header_up X-Forwarded-Proto {http.request.scheme}
+    # IP of proxy
+    header_up X-Forwarded-Host {http.request.host}
+    # Server port
+    header_up X-Forwarded-Port {http.request.port}
+}
+
+(security) {
+    header {
+        # enable HSTS
+        Strict-Transport-Security max-age=31536000; includeSubDomains; preload;
+        
+        # disable clients from sniffing the media type
+        X-Content-Type-Options nosniff
+        
+        # clickjacking protection
+        X-Frame-Options DENY
+        
+        # keep referrer data off of HTTP connections
+        Referrer-Policy no-referrer-when-downgrade
+
+        X-XSS-Protection 1; mode=block
+
+        X-Frame-Options SAMEORIGIN
+    }
+}
+
+(https-redirect) {
+    @http {
+        protocol http
+    }
+    redir @http https://{host}:{port}{uri}
+}

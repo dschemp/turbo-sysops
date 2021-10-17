@@ -1,0 +1,6 @@
+{
+  # Global settings
+}
+
+import "snippets"
+import "sites/*"

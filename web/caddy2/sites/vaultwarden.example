@@ -1,0 +1,21 @@
+# Serve localhost:80 / :443 Vaultwarden (https://github.com/dani-garcia/vaultwarden) from a Docker stack
+localhost {
+    # for imports, see snippets.caddy
+    import common
+    import security
+    import https-redirect
+
+    reverse_proxy vaultwarden:80 {
+        import proxy
+    }
+
+    reverse_proxy /notifications/hub vaultwarden:3012
+
+    basicauth /admin* {
+        # Authentication: "Bob:hiccup"
+        Bob JDJhJDEwJEVCNmdaNEg2Ti5iejRMYkF3MFZhZ3VtV3E1SzBWZEZ5Q3VWc0tzOEJwZE9TaFlZdEVkZDhX
+    }
+
+    # internal tls certificate
+    tls internal
+}

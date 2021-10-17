@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Error</title>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="https://unpkg.com/98.css" />
+  <!--# if expr="$status = 502" -->
+    <meta http-equiv="refresh" content="5">
+  <!--# endif -->
+</head>
+
+<body>
+  <div class="window" style="margin: 32px; width: 40%">
+    <div class="title-bar">
+      <div class="title-bar-text">
+        Error encountered!
+      </div>
+    </div>
+    <div class="window-body">
+      <!--# if expr="$status = 502" -->
+    <p>We are updating our website</p>
+    <p>This is only for a few seconds, you will be redirected.</p>
+  <!--# else -->
+    <p><!--# echo var="status" default="" --> <!--# echo var="status_text" default="Something goes wrong" --></p>
+  <!--# endif -->
+    </div>
+  </div>
+</body>
+</html>
