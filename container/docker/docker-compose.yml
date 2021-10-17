@@ -1,0 +1,26 @@
+version: '3.5'
+
+services:
+  <SERVICE_NAME>:
+    image: <IMAGE>
+    container_name: <SERVICE_NAME>
+    restart: unless-stopped
+    command: <COMMAND>
+    depends_on:
+      - <OTHER_SERVICE_NAME>
+    # Environment config in .env
+    environment:
+      - <FIRST_VARIABLE>
+      - <SECOND_VARIABLE>
+    volumes:
+      - <EXTERNAL_VOLUME_PATH>:<INTERNAL_VOLUME_PATH>
+    hostname: <CUSTOM_HOSTNAME>
+    networks:
+      - default
+      - <INTERNAL_NETWORK1>
+    ports:
+      - <EXTERNAL_PORT>:<CONTAINER_PORT>
+
+networks:
+  <INTERNAL_NETWORK1>:
+    internal: true

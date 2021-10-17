@@ -3,7 +3,7 @@
 Based on the Telegram notification script from MikeWent (github.com/MikeWent/notify-send-telegram).
 
 ## Requirements
-- an "Incoming Webhooks" url (from Mattermost, Discord, ...)
+- an "Incoming Webhooks" URL (from Mattermost, Discord, Slack, ...)
 - `httpie`
 - `gawk`
 - `whois`
