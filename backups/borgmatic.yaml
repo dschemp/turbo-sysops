@@ -1,0 +1,52 @@
+location:
+    # List of source directories to backup (required). Globs and tildes are expanded.
+    source_directories:
+        - /PATH/TO/DOCKER-COMPOSE/STACK
+
+    # Paths to local or remote repositories (required). Tildes are expanded. Multiple
+    # repositories are backed up to in sequence. See ssh_command for SSH options like
+    # identity file or port.
+    repositories:
+        - BACKUP_USER@BACKUP_HOST:repo/<STACK_NAME>.borg
+
+    exclude_caches: true
+
+storage:
+    # The standard output of this command is used to unlock the
+    # encryption key. Only use on repositories that were
+    # initialized with passcommand/repokey/keyfile encryption.
+    # Note that if both encryption_passcommand and
+    # encryption_passphrase are set, then encryption_passphrase
+    # takes precedence. Defaults to not set.
+    encryption_passcommand: cat /PATH/TO/PASSWORD/FILE
+
+    # Command to use instead of "ssh". This can be used to specify ssh options.
+    # Defaults to not set.
+    ssh_command: ssh -i /PATH/TO/BACKUP/SSH/KEY
+
+retention:
+    keep_daily: 3
+    keep_weekly: 4
+    keep_monthly: 12
+    keep_yearly: 2
+
+consistency:
+    checks:
+        - repository
+        - archives
+        - extract
+
+    check_last: 30
+
+hooks:
+    # List of one or more shell commands or scripts to execute before creating a
+    # backup, run once per configuration file.
+    before_backup:
+        - /PATH/TO/DOCKER-COMPOSE/STACK/backup.sh before_backup
+
+    # List of one or more shell commands or scripts to execute after creating a
+    # backup, run once per configuration file.
+    after_backup:
+        - /PATH/TO/DOCKER-COMPOSE/STACK/backup.sh after_backup
+
+    healthchecks: https://hc-ping.com/<UUID>
