@@ -8,6 +8,9 @@ Naming your server
 - `{serverId}.{location}.{country}.<YOUR-DOMAIN>`, e. g. `loadbal1.fra1.de.example.com`
 - `{serverId}.infra.<YOUR-DOMAIN>`, e. g. `db12.infra.example.net`
 
+## Discussions
+- [r/PleX | Cool server names?](https://www.reddit.com/r/PleX/comments/71bece/cool_server_names/)
+
 ## Names / Identifiers
 - [Periodic Table of Elements](https://pubchem.ncbi.nlm.nih.gov/periodic-table/)
 - [Fictional drinks](https://en.wikipedia.org/wiki/List_of_fictional_drinks)
@@ -15,6 +18,7 @@ Naming your server
 - [Country (List of ISO 3166 country codes)](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) / [List of sovereign states](https://en.wikipedia.org/wiki/List_of_sovereign_states)
 - [Mathematical shapes](https://en.wikipedia.org/wiki/List_of_mathematical_shapes)
 - [List of airline codes (Call sign)](https://en.wikipedia.org/wiki/List_of_airline_codes)
+- [List of Famous Scientists](https://www.famousscientists.org/list/)
 
 ### Celestial Bodies
 - [Solar System](https://en.wikipedia.org/wiki/Solar_System)
